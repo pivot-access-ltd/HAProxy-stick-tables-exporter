@@ -152,9 +152,9 @@ class haproxyCollector(object):
                 yield self.collect_metric(metric[0], metric[1], stick_tables)
 
         # Special metrics for table rules
-        ratelimit_conditions = self.ha_stats.load_haproxy_table_rule()
-        if ratelimit_conditions is not False:
-            yield self.collect_table_rate_condition(ratelimit_conditions)
+       #ratelimit_conditions = self.ha_stats.load_haproxy_table_rule()
+       #if ratelimit_conditions is not False:
+       #    yield self.collect_table_rate_condition(ratelimit_conditions)
 
     def collect_table_used_size(self, tables):
         metric = GaugeMetricFamily(
