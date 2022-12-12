@@ -6,6 +6,7 @@ import re
 import logging
 import argparse
 from prometheus_client import start_http_server
+from prometheus_client import GC_COLLECTOR, PLATFORM_COLLECTOR, PROCESS_COLLECTOR
 from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily
 from prometheus_client.core import REGISTRY
 
@@ -387,6 +388,10 @@ if __name__ == "__main__":
     if stats_socket is None:
         logging.fatal('Unable to find stats socket')
         sys.exit(1)
+
+    REGISTRY.unregister(GC_COLLECTOR)
+    REGISTRY.unregister(PLATFORM_COLLECTOR)
+    REGISTRY.unregister(PROCESS_COLLECTOR)
 
     REGISTRY.register(haproxyCollector(stats_socket))
     start_http_server(args.metrics_port)
